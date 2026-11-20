@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IdeaMinit — Management Manual</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand: #4f39f6;
+      --brand-light: #ede9ff;
+      --app-accent: #4338ca;
+      --app-light: #e0e7ff;
+      --site-accent: #0f766e;
+      --site-light: #ccfbf1;
+      --board-accent: #b45309;
+      --board-light: #fef3c7;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #f9fafb;
+      --white: #ffffff;
+    }
+
+    @page {
+      margin: 20mm 18mm;
+      size: A4;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--white);
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 32px 80px;
+    }
+
+    /* ─── Cover ─── */
+    .cover {
+      text-align: center;
+      padding: 60px 0 48px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .cover-logo {
+      display: inline-block;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--brand);
+      margin-bottom: 16px;
+    }
+    .cover h1 {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+    }
+    .cover p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .cover-badges {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .badge-app { background: var(--app-light); color: var(--app-accent); }
+    .badge-site { background: var(--site-light); color: var(--site-accent); }
+    .badge-board { background: var(--board-light); color: var(--board-accent); }
+
+    /* ─── TOC ─── */
+    .toc {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 52px;
+    }
+    .toc h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 24px;
+    }
+    .toc li {
+      counter-increment: toc;
+      font-size: 13.5px;
+      color: var(--text);
+      display: flex;
+      gap: 8px;
+    }
+    .toc li::before {
+      content: counter(toc) ".";
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      min-width: 18px;
+    }
+
+    /* ─── Part headers ─── */
+    .part-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 24px;
+      border-radius: 10px;
+      margin: 52px 0 32px;
+      page-break-before: always;
+    }
+    .part-header:first-of-type { page-break-before: avoid; }
+    .part-header-app { background: var(--app-light); }
+    .part-header-site { background: var(--site-light); }
+    .part-header-board { background: var(--board-light); }
+    .part-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .part-icon-app { background: var(--app-accent); color: white; }
+    .part-icon-site { background: var(--site-accent); color: white; }
+    .part-icon-board { background: var(--board-accent); color: white; }
+    .part-header-text { flex: 1; }
+    .part-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 2px;
+    }
+    .part-label-app { color: var(--app-accent); }
+    .part-label-site { color: var(--site-accent); }
+    .part-label-board { color: var(--board-accent); }
+    .part-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+    .part-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    /* ─── Sections ─── */
+    .section {
+      margin-bottom: 40px;
+    }
+    h2.section-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h2.section-title .icon { font-size: 15px; }
+
+    /* ─── Steps ─── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .step {
+      display: flex;
+      gap: 14px;
+      position: relative;
+    }
+    .step:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      top: 30px;
+      bottom: -6px;
+      width: 1.5px;
+      background: var(--border);
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      position: relative;
+      z-index: 1;
+    }
+    .step-body {
+      flex: 1;
+      padding-bottom: 18px;
+    }
+    .step-body strong {
+      display: block;
+      font-size: 13.5px;
+      margin-bottom: 2px;
+    }
+    .step-body p, .step-body ul {
+      font-size: 13px;
+      color: #374151;
+    }
+    .step-body ul {
+      padding-left: 16px;
+      margin-top: 4px;
+    }
+    .step-body li { margin-bottom: 2px; }
+
+    /* ─── Feature grid ─── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .feature-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .feature-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .feature-card p, .feature-card ul {
+      font-size: 12.5px;
+      color: #374151;
+      line-height: 1.55;
+    }
+    .feature-card ul {
+      padding-left: 14px;
+      margin-top: 3px;
+    }
+    .feature-card li { margin-bottom: 2px; }
+
+    /* ─── Callouts ─── */
+    .callout {
+      border-left: 3px solid;
+      padding: 10px 16px;
+      border-radius: 0 6px 6px 0;
+      margin: 14px 0;
+      font-size: 13px;
+    }
+    .callout-tip { border-color: var(--brand); background: var(--brand-light); }
+    .callout-warn { border-color: #f59e0b; background: #fffbeb; }
+    .callout-danger { border-color: #ef4444; background: #fef2f2; }
+    .callout strong { display: block; margin-bottom: 2px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ─── Table ─── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 12px 0;
+    }
+    th {
+      text-align: left;
+      padding: 8px 10px;
+      background: var(--bg);
+      border-bottom: 1.5px solid var(--border);
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--muted);
+    }
+    td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* ─── Code / inline mono ─── */
+    code {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 12px;
+      font-family: "SF Mono", "Fira Code", monospace;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      margin-top: 64px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media print {
+      body { padding: 0; max-width: 100%; }
+      .part-header { page-break-before: always; }
+      .no-break { page-break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-logo">IdeaMinit</div>
+  <h1>Management Manual</h1>
+  <p>Complete reference for App Managers, Site Managers, and Board Managers</p>
+  <div class="cover-badges">
+    <span class="badge badge-app">◆ App Manager</span>
+    <span class="badge badge-site">⬡ Site Manager</span>
+    <span class="badge badge-board">◈ Board Manager</span>
+  </div>
+  <p style="margin-top:24px; font-size:12px; color:#9ca3af;">AE Partners · Last updated 20 November 2026</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li>App Manager: Logging in</li>
+    <li>App Manager: Managing sites</li>
+    <li>App Manager: Setting active-board limits</li>
+    <li>App Manager: Managing site managers</li>
+    <li>Site Manager: Logging in</li>
+    <li>Site Manager: Creating boards</li>
+    <li>Site Manager: Managing access</li>
+    <li>Site Manager: Editing &amp; duplicating boards</li>
+    <li>Site Manager: Archiving, Trash &amp; recovery</li>
+    <li>Site Manager: Exporting data</li>
+    <li>Board Manager: Unlocking a board</li>
+    <li>Board Manager: Editing board details</li>
+    <li>Board Manager: Managing lanes</li>
+    <li>Board Manager: Moderating content</li>
+    <li>Board Manager: Locking the board</li>
+    <li>Board Manager: Exporting board data</li>
+  </ol>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     APP MANAGER
+═══════════════════════════════════════════ -->
+<div class="part-header part-header-app">
+  <div class="part-icon part-icon-app">◆</div>
+  <div class="part-header-text">
+    <div class="part-label part-label-app">App administration</div>
+    <div class="part-title">App Manager</div>
+    <div class="part-subtitle">Manage customer sites and the Site Managers assigned to them</div>
+  </div>
+</div>
+
+<p style="margin-bottom:32px; color:#374151;">The App Manager oversees the whole IdeaMinit installation. This role creates and controls sites and Site Manager accounts, but does not manage the boards inside a site. Site Managers handle their own boards.</p>
+
+<div class="section" id="app-login">
+  <h2 class="section-title"><span class="icon">🔐</span> App Manager · Logging in</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Open the App Manager login page</strong>
+        <p>Go to the application URL and append <code>/app-manager</code>.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Enter the App Manager email and password</strong>
+        <p>These installation-level credentials are configured by the application operator.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>The Sites dashboard opens</strong>
+        <p>Each site shows its status and the number of boards and Site Managers it contains.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="app-sites">
+  <h2 class="section-title"><span class="icon">▦</span> App Manager · Managing sites</h2>
+  <div class="feature-grid no-break">
+    <div class="feature-card">
+      <h3>✚ Create a site</h3>
+      <p>Click <strong>New Site</strong>, enter a descriptive site name, and click <strong>Create</strong>. The new site starts as active.</p>
+    </div>
+    <div class="feature-card">
+      <h3>✎ Rename a site</h3>
+      <p>Click the pencil beside the site name, enter the new name, and save it. Press Escape or click the X to cancel.</p>
+    </div>
+    <div class="feature-card">
+      <h3>⏸ Put a site on hold</h3>
+      <p>Click the pause control. All boards on the site become unavailable to visitors until the site is reactivated with the play control.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🗑 Delete a site</h3>
+      <p>Click the trash control and confirm. This permanently removes the site and its associated boards and manager accounts.</p>
+    </div>
+  </div>
+  <div class="callout callout-danger" style="margin-top:12px;">
+    <strong>⛔ Site deletion is permanent</strong>
+    Put a site on hold when access should only be suspended. Delete it only when its data is no longer required.
+  </div>
+</div>
+
+<div class="section" id="app-limits">
+  <h2 class="section-title"><span class="icon">▦</span> App Manager · Active-board limits</h2>
+  <p>Each site shows <strong>Active boards: used / limit</strong>. New sites default to <strong>Unlimited</strong>. Click <strong>Set board limit</strong> on the site card, then either leave <strong>Unlimited active boards</strong> selected or clear it and enter a whole number in <strong>Maximum active boards</strong>. Click <strong>Save limit</strong>.</p>
+  <ul>
+    <li>Zero is allowed and prevents additional active boards. Negative numbers and decimals are not accepted.</li>
+    <li>Only boards that are neither archived nor in Trash count. Read-only boards and boards on a site that is on hold still count.</li>
+    <li>At the limit, creating or duplicating a board is blocked. Unarchiving or restoring from Trash is also blocked when it would add an active board.</li>
+    <li>Restoring an archived board from Trash does not add an active board; it returns to Archive.</li>
+    <li>Lowering the limit below current usage does not delete, archive, or disable existing boards. Archive a board or increase the limit before adding another active board.</li>
+  </ul>
+  <div class="callout callout-tip" style="margin-top:12px;">
+    <strong>Site Managers cannot change this limit</strong>
+    Ask the App Manager to change the limit. A Read-Only switch does not free an active-board slot.
+  </div>
+</div>
+
+<div class="section" id="app-managers">
+  <h2 class="section-title"><span class="icon">👥</span> App Manager · Managing Site Managers</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Expand the relevant site</strong>
+        <p>Click the arrow at the left of the site row to show its Site Managers.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Click <em>Add Manager</em> and enter an email address</strong>
+        <p>IdeaMinit creates the account and generates a temporary password.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Copy and deliver the credentials securely</strong>
+        <p>The generated password is displayed only once. The Site Manager can later use <strong>Forgot password?</strong> on the Site Manager login page to set a new password.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout-warn">
+    <strong>⚠ Removing a Site Manager</strong>
+    The trash control beside a manager removes that account from the site. Make sure another Site Manager remains if the site still needs administration.
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PART 1: SITE MANAGER
+═══════════════════════════════════════════ -->
+<div class="part-header part-header-site">
+  <div class="part-icon part-icon-site">⬡</div>
+  <div class="part-header-text">
+    <div class="part-label part-label-site">Part 1</div>
+    <div class="part-title">Site Manager</div>
+    <div class="part-subtitle">Full administrative control over all boards on your site</div>
+  </div>
+</div>
+
+<p style="margin-bottom:32px; color:#374151;">Site Managers have access to the admin panel and can create, configure, archive, and delete any board on the site. Board Managers only control individual boards and cannot access the admin panel.</p>
+
+
+<!-- 1. Logging in -->
+<div class="section" id="s1">
+  <h2 class="section-title"><span class="icon">🔐</span> 1 · Logging in</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Navigate to the admin login page</strong>
+        <p>Go to the application URL and append <code>/admin</code>.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Enter your email and password</strong>
+        <p>Use the credentials provided by your App Manager or application operator. If you have forgotten your password, click <strong>Forgot password?</strong> to request a reset link by email.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>You are taken to the Boards dashboard</strong>
+        <p>All active boards for your site are listed here. Use the top navigation to switch between <strong>Boards</strong>, <strong>Archive</strong>, and <strong>Trash</strong>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout-warn" style="margin-top:16px;">
+    <strong>⚠ Rate limit</strong>
+    After 10 failed login attempts in a minute the form is temporarily locked. Wait a moment before trying again.
+  </div>
+  <div class="callout callout-warn" style="margin-top:12px;">
+    <strong>Sign out on shared devices</strong>
+    Site Manager sign-in is remembered in this browser and can survive closing and reopening Chrome. The sign-in token expires 24 hours after login; closing the admin page is not sign-out. Use <strong>Sign out</strong> in the administration header. This removes management access from every open board tab on the same application origin in this browser, closes management dialogs, and prevents a delayed unlock response from restoring access. Public boards remain available to participants; a code-protected board needs separate participant access. Other browsers and devices are separate sessions.
+  </div>
+</div>
+
+
+<!-- 2. Creating a board -->
+<div class="section" id="s2">
+  <h2 class="section-title"><span class="icon">✚</span> 2 · Creating a board</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Click <em>New Board</em></strong>
+        <p>The button appears in the top-right corner of the Boards dashboard.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Set up the board</strong>
+        <p>Choose the board language, then enter the title, optional description, submit-button label, and optional User code. Leave the User code blank for open access. After creating the board, add lanes from the board manager view.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Click <em>Create Board</em></strong>
+        <p>IdeaMinit creates a unique board URL and an 8-character Manager code. Both remain available on the board card in the Boards dashboard. Copy the URL for participants and share the Manager code only with the person responsible for managing the board.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout-tip" style="margin-top:16px;">
+    <strong>💡 Tip</strong>
+    The board card also shows whether access is open or protected by a User code. Copy controls are available for the board URL and both codes.
+  </div>
+  <p style="margin-top:12px;">If the site has reached its active-board limit, creation is refused with an explanation. Archive an existing board to free a slot, or ask the App Manager to raise the limit.</p>
+</div>
+
+
+<!-- 3. Managing access -->
+<div class="section" id="s3">
+  <h2 class="section-title"><span class="icon">🔑</span> 3 · Managing access</h2>
+  <p style="margin-bottom:14px;">By default a board is open — anyone with the URL can view it and participate. You can protect the board with a User code when creating it or later from <strong>Edit Board</strong>.</p>
+
+  <table class="no-break">
+    <thead>
+      <tr>
+        <th>Setting</th>
+        <th>Effect</th>
+        <th>How to set</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Open access</strong> (default)</td>
+        <td>Anyone with the board URL can participate</td>
+        <td>Leave the User Access Code field empty</td>
+      </tr>
+      <tr>
+        <td><strong>User code</strong></td>
+        <td>Visitors must enter the code before they can view or post</td>
+        <td>Create or edit the board and type a unique code (e.g., <code>TEAM2025</code>)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-tip" style="margin-top:12px;">
+    <strong>💡 Note</strong>
+    The User code protects ideas, lanes, and comments and must be unique within the site. The board title and basic access information can still appear on the code-entry screen. Share the User code with intended participants. It is distinct from the Manager code, which unlocks management controls. Treat both codes as credentials; neither verifies a participant's personal identity.
+  </div>
+</div>
+
+
+<!-- 4. Editing & duplicating -->
+<div class="section" id="s4">
+  <h2 class="section-title"><span class="icon">✎</span> 4 · Editing &amp; duplicating boards</h2>
+  <div class="feature-grid no-break">
+    <div class="feature-card">
+      <h3>✎ Edit a board</h3>
+      <p>Click the <strong>settings icon</strong> on a board card to open the edit form. You can change the title, description, submit-button label, User code, and board language.</p>
+    </div>
+    <div class="feature-card">
+      <h3>⧉ Duplicate a board</h3>
+      <p>Click the <strong>duplicate icon</strong> to create a new board with the same title (plus " (copy)"), description, submit-button label, language, lane names, colours, and saved lane order. Ideas, comments, and votes are not copied. Duplication needs an available active-board slot.</p>
+      <ul>
+        <li>The User Access Code is <strong>not</strong> copied — assign a new one if needed.</li>
+        <li>A new Manager Code is generated automatically.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- 5. Archiving & deleting -->
+<div class="section" id="s5">
+  <h2 class="section-title"><span class="icon">📦</span> 5 · Archiving, Trash &amp; recovery</h2>
+  <div class="feature-grid no-break">
+    <div class="feature-card">
+      <h3>📦 Archive a board</h3>
+      <p>Click the <strong>archive icon</strong> on a board card. The board moves to the <strong>Archive</strong> tab and is set to Read-Only — users can view content but cannot post, vote, or comment.</p>
+      <p style="margin-top:6px;">To restore it to the active list, open the Archive page and click <strong>Unarchive</strong>. An active-board slot must be available. The board remains Read-Only until a manager turns off <strong>Lock board</strong> in the board editor and saves the change.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🗑 Move a board to Trash</h3>
+      <p>Click the <strong>trash icon</strong> on an active board card and confirm. The board becomes unavailable at its URL, but its ideas, comments, and votes are retained. It no longer counts towards the active-board limit.</p>
+      <p style="margin-top:6px;">Open <strong>Trash</strong> to see when it was removed and by whom. Boards remain there until restored or permanently deleted; no automatic expiry is shown.</p>
+    </div>
+  </div>
+  <div class="callout callout-danger" style="margin-top:12px;">
+    <strong>Restore or delete permanently</strong>
+    In Trash, click <strong>Restore</strong> to recover the board and its content. An active board needs an available slot; an archived board returns to Archive without using a slot. Existing board sessions are invalidated when the board enters Trash, so reopen it and unlock again after recovery. To erase it, click <strong>Delete permanently</strong> and type the exact board name when prompted. Only this final deletion is irreversible and removes all its ideas, comments, and votes.
+  </div>
+</div>
+
+
+<!-- 6. Exporting data -->
+<div class="section" id="s6">
+  <h2 class="section-title"><span class="icon">⬇</span> 6 · Exporting data</h2>
+  <p style="margin-bottom:12px;">From the Boards dashboard, click <strong>Download my data</strong> in the header. This downloads a JSON file with account details and the site's active and archived boards, lanes, ideas, comments, and vote totals. Boards in Trash are excluded; restore one first if you need to export it. Manager codes are masked in this account export.</p>
+
+  <div class="callout callout-tip">
+    <strong>💡 Tip</strong>
+    Keep an export for reference before significant structural changes or permanent deletion. An export is a downloadable record, not a one-click restore file; the app does not provide an import/restore-from-file screen.
+  </div>
+
+  <p style="margin-top:12px;">Individual boards can also be exported by a board manager as CSV or JSON — see Part 2, Section 12.</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PART 2: BOARD MANAGER
+═══════════════════════════════════════════ -->
+<div class="part-header part-header-board">
+  <div class="part-icon part-icon-board">◈</div>
+  <div class="part-header-text">
+    <div class="part-label part-label-board">Part 2</div>
+    <div class="part-title">Board Manager</div>
+    <div class="part-subtitle">Control a specific board directly from the board page</div>
+  </div>
+</div>
+
+<p style="margin-bottom:32px; color:#374151;">Board Managers control a single board using a Manager Code. All board manager actions take place directly on the board page — there is no separate login. This section can be shared with anyone responsible for managing a board.</p>
+
+
+<!-- 7. Unlocking a board -->
+<div class="section" id="s7">
+  <h2 class="section-title"><span class="icon">🔓</span> 7 · Unlocking a board</h2>
+
+  <div class="callout callout-tip" style="margin-bottom:16px;">
+    <strong>💡 Site Managers: no code needed</strong>
+    If you open a board URL while logged in as a Site Manager, manager controls activate automatically — you do not need to enter the Manager Code. This works whether you open the link from the admin panel or paste the board URL directly. Actual board managers still use the Manager Code as normal.
+  </div>
+
+  <p style="margin-bottom:12px; font-size:13px; color:#374151;">For board managers who access the board without a site manager login, follow the steps below.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Open the board URL in a browser</strong>
+        <p>If the board is protected by a User Access Code, enter it first.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Click the settings gear icon</strong>
+        <p>It appears in the top-right corner of the board header.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Enter your Manager Code</strong>
+        <p>This is the 8-character code provided by your Site Manager. Once entered, manager controls become visible on the board.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout-tip" style="margin-top:16px;">
+    <strong>💡 Shared or meeting-room devices</strong>
+    A Manager-code unlock is held in the current tab's memory and is cleared on refresh. However, a signed-in Site Manager is automatically unlocked again. On a shared device, use <strong>Sign out</strong> in site administration first: it removes management access from all open board tabs on this application origin. Closing the administration tab alone does not do this.
+  </div>
+</div>
+
+
+<!-- 7b. Understanding participants -->
+<div class="section" id="s7b">
+  <h2 class="section-title"><span class="icon">👥</span> How participants experience the board</h2>
+  <p style="margin-bottom:14px;">Understanding participant behaviour helps you moderate effectively and set realistic expectations in your sessions.</p>
+
+  <div class="feature-grid no-break">
+    <div class="feature-card">
+      <h3>👤 Identity &amp; anonymity</h3>
+      <p>Participants are asked for a name when submitting an idea or comment, but it is entirely optional. Leaving it blank posts as <strong>Anonymous</strong>. The name field is free text — it is not verified or linked to any account. A moderator sees whatever name was typed, which may be nothing.</p>
+    </div>
+    <div class="feature-card">
+      <h3>👍 How voting works</h3>
+      <p>Participants can vote for any idea once and can undo their vote. The server links votes to a signed browser identity stored in a long-lived cookie; no account is required. Local browser storage also remembers which buttons were selected.</p>
+      <ul style="margin-top:6px;">
+        <li>One vote per idea per browser identity, enforced by the server</li>
+        <li>Voting on a different browser or device counts as a new vote</li>
+        <li>There is no cap on total votes per person</li>
+        <li>There is no vote-only off switch; Read-Only stops votes together with idea submission and comments</li>
+      </ul>
+      <p style="margin-top:6px; font-size:12px; color:#6b7280;">For decisions where vote integrity matters, treat the totals as indicative rather than definitive.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- 8. Editing board details -->
+<div class="section" id="s8">
+  <h2 class="section-title"><span class="icon">✎</span> 8 · Editing board details</h2>
+  <p style="margin-bottom:12px;">Once unlocked, click the <strong>pencil icon beside the board title</strong> to open the inline editor. Use the checkmark to save or the X to cancel. The information icon beside the title opens the optional board description.</p>
+
+  <table class="no-break">
+    <thead>
+      <tr><th>Field</th><th>What it controls</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Title</strong></td>
+        <td>The large heading at the top of the board page</td>
+      </tr>
+      <tr>
+        <td><strong>Description</strong></td>
+        <td>Optional context or instructions opened with the information icon beside the title</td>
+      </tr>
+      <tr>
+        <td><strong>"Add Idea" button label</strong></td>
+        <td>The text on the main action button — e.g., "Submit a suggestion" or "Share your idea"</td>
+      </tr>
+      <tr>
+        <td><strong>Language</strong></td>
+        <td>Selects English, Finnish, or Swedish for built-in board interface labels. It does not translate existing titles, descriptions, lane names, ideas, comments, or custom button text.</td>
+      </tr>
+      <tr>
+        <td><strong>Lock board (read-only)</strong></td>
+        <td>Stops new ideas, votes, and comments while keeping existing content visible</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:10px; font-size:13px; color:#374151;">Click the <strong>checkmark</strong> to apply changes. Other open boards receive updates on their next refresh; if the header still shows old details, reload the page.</p>
+</div>
+
+
+<!-- 9. Managing lanes -->
+<div class="section" id="s9">
+  <h2 class="section-title"><span class="icon">⋮⋮</span> 9 · Managing lanes</h2>
+  <p style="margin-bottom:14px;">Lanes are the columns of the board. Each idea is assigned to a lane when submitted. Open <strong>Manage lanes</strong> (the <strong>Lane Settings</strong> dialog) to create, rename, recolour, reorder, or delete lanes.</p>
+
+  <div class="feature-grid no-break">
+    <div class="feature-card">
+      <h3>✚ Add a lane</h3>
+      <p>Click <strong>Manage lanes</strong>. Under <strong>Add New Lane</strong>, enter a name and choose a colour, then click <strong>Create Lane</strong>.</p>
+    </div>
+    <div class="feature-card">
+      <h3>✎ Edit a lane</h3>
+      <p>Open <strong>Manage lanes</strong> and click the pencil icon beside a lane. Update the name or colour and click <strong>Save lane</strong>.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🗑 Delete a lane</h3>
+      <p>Open <strong>Manage lanes</strong> and click the trash icon beside a lane. This also removes all ideas currently in that lane.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Reorder lanes</h3>
+      <p>Use the up/down arrows beside a lane in <strong>Lane Settings</strong>. Each move is saved automatically; wait for saving to finish before the next change. The first lane cannot move up and the last cannot move down. Save or cancel a lane edit before reordering.</p>
+      <p>The saved order is shared by desktop columns, mobile lane tabs, and lane choices in forms. It survives reloads and is copied when duplicating a board. New lanes are added at the end. Idea sorting is a separate control.</p>
+    </div>
+  </div>
+  <div class="callout callout-warn" style="margin-top:12px;">
+    <strong>⚠ Warning</strong>
+    Deleting a lane permanently removes all ideas in it. Move ideas to another lane before deleting if you want to keep them.
+  </div>
+</div>
+
+
+<!-- 10. Moderating content -->
+<div class="section" id="s10">
+  <h2 class="section-title"><span class="icon">🛡</span> 10 · Moderating content</h2>
+  <p style="margin-bottom:14px;">Manager controls appear on each idea card when you are logged in as board manager.</p>
+
+  <div class="feature-grid no-break">
+    <div class="feature-card">
+      <h3>✎ Edit an idea</h3>
+      <p>Click the <strong>pencil icon</strong> on an idea card to edit its title and description inline. Click <strong>Save</strong> when done.</p>
+    </div>
+    <div class="feature-card">
+      <h3>↔ Move an idea</h3>
+      <p><strong>Drag and drop (desktop):</strong> Hover the card to reveal the grip handle (⠿) at the top-left, then drag it to a different lane column and release.</p>
+      <p style="margin-top:5px;"><strong>Edit mode (any device):</strong> Click the pencil icon and use the lane picker at the bottom of the form, then click <strong>Save</strong>.</p>
+    </div>
+    <div class="feature-card">
+      <h3>⇅ Sort ideas</h3>
+      <p>Use the <strong>Sort</strong> dropdown in the board header to change the display order within every lane simultaneously:</p>
+      <ul>
+        <li><strong>Oldest first</strong> — submission order (default)</li>
+        <li><strong>Newest first</strong> — most recent at the top</li>
+        <li><strong>Most votes</strong> — highest vote count first</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <h3>🗑 Delete an idea</h3>
+      <p>Click the <strong>trash icon</strong> on an idea card. Confirm the deletion. This is permanent and also removes all comments on that idea.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🗑 Delete a comment</h3>
+      <p>Expand an idea's comments and click the <strong>trash icon</strong> next to a comment. Useful for removing inappropriate content.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- 11. Locking the board -->
+<div class="section" id="s11">
+  <h2 class="section-title"><span class="icon">🔒</span> 11 · Locking the board (Read-Only mode)</h2>
+  <p style="margin-bottom:12px;">Locking prevents participants from submitting new ideas, voting, or commenting. Existing content remains fully visible. This is useful when a collection window has closed.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Open the board editor</strong>
+        <p>Click the <strong>pencil beside the board title</strong> (requires manager access).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Toggle the <em>Lock board</em> switch</strong>
+        <p>Turn on the switch, then click the <strong>checkmark to save</strong>. An amber banner indicates that the board is read-only. Other open tabs may need to refresh their board details to show the banner; the server enforces the saved restriction.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>To unlock, toggle the switch off</strong>
+        <p>Click the checkmark to save again. Idea submission, voting, and commenting are allowed again unless another access restriction applies.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 12. Exporting board data -->
+<div class="section" id="s12">
+  <h2 class="section-title"><span class="icon">⬇</span> 12 · Exporting board data</h2>
+  <p style="margin-bottom:12px;">You can download all the content of a board at any time for offline analysis or reporting.</p>
+
+  <table class="no-break">
+    <thead>
+      <tr><th>Format</th><th>Best for</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>CSV</strong></td>
+        <td>Opening in Excel, Google Sheets, or other spreadsheet tools; includes separate rows for ideas and comments</td>
+      </tr>
+      <tr>
+        <td><strong>JSON</strong></td>
+        <td>Developer use, automated processing, or backup</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="steps" style="margin-top:16px;">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Open the board with manager access active</strong>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Click the <em>Export</em> button in the board header</strong>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Choose CSV or JSON</strong>
+        <p>The file downloads immediately to your default downloads folder.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  <span>IdeaMinit — AE Partners</span>
+  <span>Management Manual · 20 November 2026</span>
+</footer>
+
+</body>
+</html>

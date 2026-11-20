@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IdeaMinit — Deltagarguide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand: #4f39f6;
+      --brand-light: #ede9ff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #f9fafb;
+    }
+
+    @page { margin: 15mm; size: A4; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text);
+      background: white;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 36px 28px 60px;
+    }
+
+    .cover {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--brand);
+      padding-bottom: 20px;
+      margin-bottom: 28px;
+    }
+    .logo { font-size: 22px; font-weight: 900; letter-spacing: -1px; color: var(--brand); }
+    .cover h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.3px; margin-top: 4px; }
+    .cover-right { text-align: right; font-size: 12px; color: var(--muted); padding-top: 4px; }
+
+    .intro {
+      background: var(--brand-light);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13px;
+      margin-bottom: 28px;
+      color: #3730a3;
+    }
+
+    .section { margin-bottom: 26px; }
+    h2 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+    h2 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); flex-shrink: 0; }
+
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step { display: flex; gap: 12px; position: relative; }
+    .step:not(:last-child)::before {
+      content: ""; position: absolute;
+      left: 12px; top: 26px; bottom: -4px;
+      width: 1.5px; background: var(--border);
+    }
+    .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--brand); color: white;
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px; position: relative; z-index: 1;
+    }
+    .step-body { flex: 1; padding-bottom: 14px; }
+    .step-body strong { display: block; font-size: 13px; margin-bottom: 1px; }
+    .step-body p, .step-body ul { font-size: 12.5px; color: #374151; }
+    .step-body ul { padding-left: 14px; margin-top: 3px; }
+    .step-body li { margin-bottom: 2px; }
+
+    .callout {
+      border-left: 3px solid #f59e0b;
+      background: #fffbeb;
+      padding: 9px 14px;
+      border-radius: 0 6px 6px 0;
+      font-size: 12.5px;
+      margin: 10px 0;
+    }
+    .callout strong { display: block; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px; }
+
+    .locked-box {
+      border: 1.5px solid #fde68a;
+      background: #fffbeb;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13px;
+    }
+    .locked-box strong { color: #92400e; }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media print {
+      body { padding: 0; max-width: 100%; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cover">
+  <div>
+    <div class="logo">IdeaMinit</div>
+    <h1>Deltagarguide</h1>
+  </div>
+  <div class="cover-right">AE Partners<br>20 november 2026</div>
+</div>
+
+<div class="intro">
+  Du har bjudits in att dela idéer på en IdeaMinit-tavla. Den här guiden förklarar allt du behöver för att delta — det tar ungefär två minuter att läsa.
+</div>
+
+
+<div class="section">
+  <h2><span class="dot"></span> Åtkomst till tavlan</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Öppna länken som din arrangör delade med dig</strong>
+        <p>Tavlan fungerar i alla moderna webbläsare — ingen app eller konto behövs.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Ange åtkomstkoden om du uppmanas</strong>
+        <p>Vissa tavlor är skyddade. Din arrangör ger dig koden — den är vanligtvis ett kort ord eller en fras (t.ex. <em>TEAM2025</em>).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Du ser tavlan med dess spår (kolumner)</strong>
+        <p>Varje spår är en kategori. Idéer publiceras i ett specifikt spår.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>Åtkomst och tillgänglighet</strong>
+    Arrangören väljer engelska, finska eller svenska för tavlans gränssnitt. Detta översätter inte inskickade idéer eller kommentarer. En skyddad tavla kan be om åtkomstkoden igen efter en omladdning eller i en ny flik. Om tavlan är tillfälligt otillgänglig, inte hittas eller har flyttats till papperskorgen, kontakta arrangören. Du behöver inte skapa ett konto.
+  </div>
+</div>
+
+
+<div class="section">
+  <h2><span class="dot"></span> Bläddra bland och sortera idéer</h2>
+  <p style="font-size:13px; color:#374151; margin-bottom:10px;">Använd menyn <strong>Sortera</strong> i tavlans sidhuvud för att visa de äldsta idéerna först, de nyaste idéerna först eller idéerna med flest röster först. Sorteringen ändrar bara visningsordningen och flyttar inte idéer mellan spår.</p>
+  <p style="font-size:12.5px; color:#374151;">På mindre skärmar väljer du en spårflik för att visa den kategorin. Välj <strong>Ladda fler</strong> om spåret innehåller ytterligare idéer.</p>
+  <p style="font-size:12.5px; color:#374151; margin-top:10px;">Arrangören bestämmer spårens ordning. Samma ordning används för kolumner på datorn och flikar på mobilen. Informationsikonen bredvid tavlans titel öppnar arrangörens beskrivning. Långa idébeskrivningar kan öppnas med <strong>Läs mer</strong>. Idéer, antal och spår uppdateras regelbundet medan tavlan är öppen. Ladda om sidan om tavlans uppgifter verkar inaktuella.</p>
+</div>
+
+
+<div class="section">
+  <h2><span class="dot"></span> Dela en idé</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Klicka på huvudknappen (t.ex. "Lägg till idé")</strong>
+        <p>Knappen finns i det övre området på tavlan. Dess text kan ha anpassats av din arrangör.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Fyll i formuläret</strong>
+        <ul>
+          <li><strong>Titel</strong> (obligatorisk) — en kort sammanfattning av din idé</li>
+          <li><strong>Detaljer</strong> (valfritt) — ytterligare sammanhang eller förklaring</li>
+          <li><strong>Spår</strong> (obligatorisk) — kategorin som din idé tillhör</li>
+          <li><strong>Ditt namn</strong> (valfritt) — lämna tomt för att posta anonymt</li>
+        </ul>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Klicka på "Publicera till tavlan" — din idé visas när den har sparats</strong>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>ℹ️ Anonymitet</strong>
+    Ditt namn är fritext och verifieras inte. Lämnar du det tomt postas du som "Anonym". Din arrangör kan se det namn du angett, men inget konto krävs för att delta.
+  </div>
+  <p style="font-size:12.5px; color:#374151; margin-top:10px;">Deltagare kan inte redigera, flytta eller radera publicerade idéer eller radera kommentarer. Be tavlans ansvariga att rätta eller ta bort innehåll. Om tavlan ännu inte har några spår, be arrangören lägga till ett innan du publicerar.</p>
+</div>
+
+
+<div class="section">
+  <h2><span class="dot"></span> Röstning</h2>
+  <p style="font-size:13px; color:#374151; margin-bottom:10px;">Du kan rösta på idéer för att visa stöd. Det finns ingen gräns för hur många idéer du kan rösta på.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Klicka på röstningsknappen på ett idékort för att stödja det</strong>
+        <p>Röstantalet ökar omedelbart.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Klicka igen för att ta bort din röst</strong>
+        <p>Du kan rösta och ta bort rösten fritt medan tavlan är öppen.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>ℹ️ Hur röster spåras</strong>
+    Röster kopplas till en signerad webbläsaridentitet som lagras i en långlivad cookie, inte till ett användarkonto. En röst tillåts per idé och webbläsaridentitet. En annan webbläsare eller enhet får en annan identitet, och om webbplatsdata rensas kan identiteten återställas.
+  </div>
+</div>
+
+
+<div class="section">
+  <h2><span class="dot"></span> Kommentera</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Klicka på "Visa kommentarer" på ett idékort</strong>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Ange valfritt ditt namn och skriv sedan din kommentar</strong>
+        <p>Lämna namnet tomt för att kommentera anonymt.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Tryck Enter eller klicka på skicka-knappen</strong>
+        <p>Shift+Enter lägger till en radbrytning utan att skicka kommentaren.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section">
+  <h2><span class="dot"></span> När tavlan är låst</h2>
+  <div class="locked-box">
+    <p>En <strong>gul banderoll</strong> betyder att tavlan är skrivskyddad. Det kan vara en tillfällig paus eller slutet på insamlingen. Du kan läsa idéer, röstantal och befintliga kommentarer, men inte lägga till idéer, rösta, ta bort röster eller kommentera. Arkiverade tavlor är också skrivskyddade. Om webbplatsen har pausats eller tavlan har flyttats till papperskorgen är tavlan i stället otillgänglig. Kontakta arrangören om detta är oväntat.</p>
+  </div>
+</div>
+
+
+<footer>
+  <span>IdeaMinit — AE Partners</span>
+  <span>Deltagarguide (svenska) · 20 november 2026</span>
+</footer>
+
+</body>
+</html>
